@@ -27,6 +27,7 @@ namespace Netcore.Sample.Web.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddPostgres(Configuration);
+            services.AddMongo(Configuration);
 
             services.AddSingleton<IStudentService, StudentService>();
 

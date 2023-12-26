@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using Netcore.Sample.Web.Api.Models.DTOs;
 
 namespace Netcore.Sample.Web.Api.Models.Entities
 {

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Netcore.Sample.Web.Api.Models;
+using Netcore.Sample.Web.Api.Models.DTOs;
 using Netcore.Sample.Web.Api.Models.Entities;
 using Netcore.Sample.Web.Api.Services;
 

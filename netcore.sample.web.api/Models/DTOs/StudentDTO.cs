@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using Netcore.Sample.Web.Api.Models.Entities;
 using Newtonsoft.Json;
 
-namespace Netcore.Sample.Web.Api.Models
+namespace Netcore.Sample.Web.Api.Models.DTOs
 {
     public class StudentDTO
     {

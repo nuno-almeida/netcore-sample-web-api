@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Netcore.Sample.Web.Api.Configurations;
+using Netcore.Sample.Web.Api.Services;
 
 namespace Netcore.Sample.Web.Api.Extensions
 {
@@ -10,6 +11,12 @@ namespace Netcore.Sample.Web.Api.Extensions
         {
             services.Configure<PostgresOptions>(configuration.GetSection(PostgresOptions.Postgres));
             services.AddSingleton<StudentContext>();
+        }
+
+        public static void AddMongo(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.Configure<MongoOptions>(configuration.GetSection(MongoOptions.Mongo));
+            services.AddSingleton<IAuditRepository, AuditRepository>();
         }
     }
 }
