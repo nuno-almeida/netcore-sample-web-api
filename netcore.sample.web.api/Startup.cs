@@ -28,6 +28,7 @@ namespace Netcore.Sample.Web.Api
         {
             services.AddPostgres(Configuration);
             services.AddMongo(Configuration);
+            services.AddKafka(Configuration);
 
             services.AddSingleton<IStudentService, StudentService>();
 

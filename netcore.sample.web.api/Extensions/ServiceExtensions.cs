@@ -18,5 +18,12 @@ namespace Netcore.Sample.Web.Api.Extensions
             services.Configure<MongoOptions>(configuration.GetSection(MongoOptions.Mongo));
             services.AddSingleton<IAuditRepository, AuditRepository>();
         }
+
+        public static void AddKafka(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.Configure<KafkaOptions>(configuration.GetSection(KafkaOptions.Kafka));
+            services.AddSingleton<IKafkaProducer, KafkaProducer>();
+            services.AddHostedService<AuditKafkaConsumer>();
+        }
     }
 }
