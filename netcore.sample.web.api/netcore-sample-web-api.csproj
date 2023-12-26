@@ -17,6 +17,7 @@
     <None Remove="Npgsql.EntityFrameworkCore.PostgreSQL" />
     <None Remove="MongoDB.Driver" />
     <None Remove="Confluent.Kafka" />
+    <None Remove="Filters\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
@@ -31,5 +32,6 @@
     <Folder Include="Models\DTOs\" />
     <Folder Include="Models\Entities\" />
     <Folder Include="Services\" />
+    <Folder Include="Filters\" />
   </ItemGroup>
 </Project>

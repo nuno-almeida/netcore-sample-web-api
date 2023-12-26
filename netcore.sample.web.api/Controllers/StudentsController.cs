@@ -3,6 +3,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Netcore.Sample.Web.Api.Filters;
+using Netcore.Sample.Web.Api.Models;
 using Netcore.Sample.Web.Api.Models.DTOs;
 using Netcore.Sample.Web.Api.Models.Entities;
 using Netcore.Sample.Web.Api.Services;
@@ -21,8 +23,9 @@ namespace Netcore.Sample.Web.Api.Controllers
             _logger = logger;
             _studentService = studentService;
         }
-
+        // TODO add pagination, sorting and filtering
         [HttpGet]
+        [AuditFilter(Operation = Constants.Audit.Operations.ReadAll, EntityName = Constants.Audit.Entities.Student)]
         public async Task<ActionResult<IEnumerable<StudentDTO>>> Get()
         {
             var students = await _studentService.GetAsync();
@@ -31,6 +34,7 @@ namespace Netcore.Sample.Web.Api.Controllers
         }
 
         [HttpGet("{id}")]
+        [AuditFilter(Operation = Constants.Audit.Operations.Read, EntityName = Constants.Audit.Entities.Student)]
         public async Task<ActionResult<StudentDTO>> Get(int id)
         {
             var student = await _studentService.GetAsync(id);
@@ -42,6 +46,7 @@ namespace Netcore.Sample.Web.Api.Controllers
         }
 
         [HttpPost]
+        [AuditFilter(Operation = Constants.Audit.Operations.Create, EntityName = Constants.Audit.Entities.Student)]
         public async Task<ActionResult<StudentDTO>> Post([FromBody] StudentDTO studentDTO)
         {
             var student = new Student();
@@ -53,6 +58,7 @@ namespace Netcore.Sample.Web.Api.Controllers
         }
 
         [HttpPut("{id}")]
+        [AuditFilter(Operation = Constants.Audit.Operations.Update, EntityName = Constants.Audit.Entities.Student)]
         public async Task<IActionResult> Put(int id, [FromBody] StudentDTO studentDTO)
         {
             if (id != studentDTO.Id)
@@ -70,6 +76,7 @@ namespace Netcore.Sample.Web.Api.Controllers
         }
 
         [HttpDelete("{id}")]
+        [AuditFilter(Operation = Constants.Audit.Operations.Delete, EntityName = Constants.Audit.Entities.Student)]
         public async Task<IActionResult> DeleteUser(int id)
         {
             var student = await _studentService.GetAsync(id);
