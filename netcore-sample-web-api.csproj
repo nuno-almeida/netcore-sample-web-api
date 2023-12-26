@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>netcore_sample_web_api</RootNamespace>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <None Remove="Newtonsoft.Json" />
+    <None Remove="Configurations\" />
+    <None Remove="Extensions\" />
+    <None Remove="Models\" />
+    <None Remove="Models\DTOs\" />
+    <None Remove="Models\Entities\" />
+    <None Remove="Services\" />
+    <None Remove="Npgsql.EntityFrameworkCore.PostgreSQL" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.18" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Configurations\" />
+    <Folder Include="Extensions\" />
+    <Folder Include="Models\" />
+    <Folder Include="Models\DTOs\" />
+    <Folder Include="Models\Entities\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+</Project>
