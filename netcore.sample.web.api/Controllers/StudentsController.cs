@@ -8,6 +8,7 @@ using Netcore.Sample.Web.Api.Models;
 using Netcore.Sample.Web.Api.Models.DTOs;
 using Netcore.Sample.Web.Api.Models.Entities;
 using Netcore.Sample.Web.Api.Services;
+using Netcore.Sample.Web.Api.Utils;
 
 namespace Netcore.Sample.Web.Api.Controllers
 {
@@ -23,7 +24,7 @@ namespace Netcore.Sample.Web.Api.Controllers
             _logger = logger;
             _studentService = studentService;
         }
-        // TODO add pagination, sorting and filtering
+        
         [HttpGet]
         [AuditFilter(Operation = Constants.Audit.Operations.ReadAll, EntityName = Constants.Audit.Entities.Student)]
         public async Task<ActionResult<IEnumerable<StudentDTO>>> Get()
@@ -40,7 +41,7 @@ namespace Netcore.Sample.Web.Api.Controllers
             var student = await _studentService.GetAsync(id);
 
             if (student == null)
-                return NotFound();
+                return HttpResponseResult.NotFound($"Student {id} not found");
 
             return StudentDTO.fromEntity(student);
         }
@@ -62,11 +63,11 @@ namespace Netcore.Sample.Web.Api.Controllers
         public async Task<IActionResult> Put(int id, [FromBody] StudentDTO studentDTO)
         {
             if (id != studentDTO.Id)
-                return BadRequest();
+                return HttpResponseResult.BadRequest("Student path id and body id mismatch");
 
             var student = await _studentService.GetAsync(id);
             if (student == null)
-                return NotFound();
+                return HttpResponseResult.NotFound($"Student {id} not found");
 
             student.fromDTO(studentDTO);
 
@@ -82,7 +83,7 @@ namespace Netcore.Sample.Web.Api.Controllers
             var student = await _studentService.GetAsync(id);
 
             if (student == null)
-                return NotFound();
+                return HttpResponseResult.NotFound($"Student {id} not found");
 
             await _studentService.DeleteAsync(student);
 

@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Netcore.Sample.Web.Api.Configurations;
 using Netcore.Sample.Web.Api.Extensions;
 using Netcore.Sample.Web.Api.Services;
 
@@ -33,6 +34,12 @@ namespace Netcore.Sample.Web.Api
             services.AddSingleton<IStudentService, StudentService>();
 
             services.AddControllers();
+
+            services.AddMvc()
+           .AddJsonOptions(options =>
+           {
+               options.JsonSerializerOptions.IgnoreNullValues = true;
+           });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,6 +49,8 @@ namespace Netcore.Sample.Web.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseMiddleware<ExceptionHandlerMiddleware>();
 
             app.UseRouting();
 
