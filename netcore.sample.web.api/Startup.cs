@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Netcore.Sample.Web.Api.Configurations;
 using Netcore.Sample.Web.Api.Extensions;
+using Netcore.Sample.Web.Api.Filters;
 using Netcore.Sample.Web.Api.Services;
 
 namespace Netcore.Sample.Web.Api
@@ -33,7 +34,9 @@ namespace Netcore.Sample.Web.Api
 
             services.AddSingleton<IStudentService, StudentService>();
 
-            services.AddControllers();
+            services.AddControllers(options => {
+                options.Filters.Add<ModelStateValidationFilter>();
+            });
 
             services.AddMvc()
            .AddJsonOptions(options =>

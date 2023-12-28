@@ -16,6 +16,6 @@ namespace Netcore.Sample.Web.Api.Models.DTOs
         public string Description { get; set; }
 
         [JsonProperty("errors", NullValueHandling = NullValueHandling.Ignore)]
-        public IDictionary<string, object> Errors { get; set; }
+        public IDictionary<string, string> Errors { get; set; }
     }
 }
