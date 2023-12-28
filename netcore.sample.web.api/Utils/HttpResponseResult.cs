@@ -40,8 +40,21 @@ namespace Netcore.Sample.Web.Api.Utils
                 Errors = errors
             };
 
-
             return new UnprocessableEntityObjectResult(exceptionResponseDTO);
+        }
+
+        public static ObjectResult TooManyRequests(string description = null)
+        {
+            var exceptionResponseDTO = new ExceptionResponseDTO
+            {
+                Message = "Too Many Requests",
+                StatusCode = System.Net.HttpStatusCode.TooManyRequests,
+                Description = description
+            };
+
+            return new ObjectResult(exceptionResponseDTO) {
+                StatusCode = (int)System.Net.HttpStatusCode.TooManyRequests
+            };
         }
     }
 }

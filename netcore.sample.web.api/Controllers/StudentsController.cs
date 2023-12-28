@@ -13,6 +13,7 @@ using Netcore.Sample.Web.Api.Utils;
 namespace Netcore.Sample.Web.Api.Controllers
 {
     [ApiController]
+    [RateLimiterFilter(MaxRequests = 5, DurationInSeconds = 10)]
     [Route("/api/v1/[controller]")]
     public class StudentsController : ControllerBase
     {

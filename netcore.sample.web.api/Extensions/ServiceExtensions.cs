@@ -25,5 +25,11 @@ namespace Netcore.Sample.Web.Api.Extensions
             services.AddSingleton<IKafkaProducer, KafkaProducer>();
             services.AddHostedService<AuditKafkaConsumer>();
         }
+
+        public static void AddRedis(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.Configure<RedisOptions>(configuration.GetSection(RedisOptions.Redis));
+            services.AddSingleton<IRedisService, RedisService>();
+        }
     }
 }

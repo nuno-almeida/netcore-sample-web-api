@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -31,18 +26,19 @@ namespace Netcore.Sample.Web.Api
             services.AddPostgres(Configuration);
             services.AddMongo(Configuration);
             services.AddKafka(Configuration);
-
+            services.AddRedis(Configuration);
             services.AddSingleton<IStudentService, StudentService>();
 
-            services.AddControllers(options => {
+            services.AddControllers(options =>
+            {
                 options.Filters.Add<ModelStateValidationFilter>();
             });
 
             services.AddMvc()
-           .AddJsonOptions(options =>
-           {
-               options.JsonSerializerOptions.IgnoreNullValues = true;
-           });
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.IgnoreNullValues = true;
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
