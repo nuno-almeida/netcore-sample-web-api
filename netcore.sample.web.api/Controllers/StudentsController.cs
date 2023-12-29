@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -25,14 +24,21 @@ namespace Netcore.Sample.Web.Api.Controllers
             _logger = logger;
             _studentService = studentService;
         }
-        
+
         [HttpGet]
         [AuditFilter(Operation = Constants.Audit.Operations.ReadAll, EntityName = Constants.Audit.Entities.Student)]
-        public async Task<ActionResult<IEnumerable<StudentDTO>>> Get()
+        public async Task<ActionResult<PagedList<StudentDTO>>> Get([FromQuery] GetStudentsQueryDTO getStudentsQueryDTO)
         {
-            var students = await _studentService.GetAsync();
-            var studentsDTO = students.Select(student => StudentDTO.fromEntity(student));
-            return Ok(studentsDTO);
+            var pagedListStudents = await _studentService.GetAsync(getStudentsQueryDTO);
+
+            var pagedListStudentsDTO = new PagedList<StudentDTO>(
+                items: pagedListStudents.Items.Select(student => StudentDTO.fromEntity(student)).ToList(),
+                totalItems: pagedListStudents.TotalItems,
+                pageIndex: pagedListStudents.PageIndex,
+                pageSize: pagedListStudents.PageSize
+            );
+
+            return Ok(pagedListStudentsDTO);
         }
 
         [HttpGet("{id}")]

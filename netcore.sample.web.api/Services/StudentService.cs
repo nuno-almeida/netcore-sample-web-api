@@ -1,7 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Netcore.Sample.Web.Api.Configurations;
+using Netcore.Sample.Web.Api.Models;
+using Netcore.Sample.Web.Api.Models.DTOs;
 using Netcore.Sample.Web.Api.Models.Entities;
 
 namespace Netcore.Sample.Web.Api.Services
@@ -15,9 +19,13 @@ namespace Netcore.Sample.Web.Api.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<Student>> GetAsync()
+        public async Task<PagedList<Student>> GetAsync(GetStudentsQueryDTO getStudentsQueryDTO)
         {
-            return await _context.Students.ToListAsync();
+            var queryStudents = getStudentsQueryDTO.GetQuery(_context.Students);
+            var pageIndex = getStudentsQueryDTO.Page;
+            var pageSize = getStudentsQueryDTO.PageSize;
+
+            return await PagedList<Student>.CreateAsync(queryStudents, pageIndex, pageSize);
         }
 
         public async Task<Student> GetAsync(int id)
