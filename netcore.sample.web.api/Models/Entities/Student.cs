@@ -8,7 +8,7 @@ namespace Netcore.Sample.Web.Api.Models.Entities
     public class Student
     {
         [Column("id")]
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         [Column("name")]
         public string Name { get; set; }

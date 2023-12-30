@@ -10,7 +10,7 @@ namespace Netcore.Sample.Web.Api.Models.DTOs
     {
         [JsonProperty(PropertyName = "id")]
         [DisplayName("id")]
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         [StringLength(maximumLength: 50, MinimumLength = 10)]
         [JsonProperty(PropertyName = "name")]
