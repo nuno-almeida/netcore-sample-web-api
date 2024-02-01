@@ -27,18 +27,18 @@ namespace Netcore.Sample.Web.Api.Controllers
 
         [HttpGet]
         [AuditFilter(Operation = Constants.Audit.Operations.ReadAll, EntityName = Constants.Audit.Entities.Student)]
-        public async Task<ActionResult<PagedList<StudentDTO>>> Get([FromQuery] GetStudentsQueryDTO getStudentsQueryDTO)
+        public async Task<PagedList<StudentDTO>> Get([FromQuery] GetStudentsQueryDTO getStudentsQueryDTO)
         {
             var pagedListStudents = await _studentService.GetAsync(getStudentsQueryDTO);
 
             var pagedListStudentsDTO = new PagedList<StudentDTO>(
-                items: pagedListStudents.Items.Select(student => StudentDTO.fromEntity(student)).ToList(),
+                items: pagedListStudents.Items.Select(StudentDTO.fromEntity).ToList(),
                 totalItems: pagedListStudents.TotalItems,
                 pageIndex: pagedListStudents.PageIndex,
                 pageSize: pagedListStudents.PageSize
             );
 
-            return Ok(pagedListStudentsDTO);
+            return pagedListStudentsDTO;
         }
 
         [HttpGet("{id}")]
