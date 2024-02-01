@@ -26,7 +26,7 @@ namespace Netcore.Sample.Web.Api.Controllers
         {
             var audits = await _auditRepository.GetAsync();
 
-            return audits.Select(au => AuditDTO.fromEntity(au)).ToList();
+            return audits.Select(au => AuditDTO.fromEntity(au));
         }
     }
 }
